@@ -20,22 +20,12 @@ module.exports = {
       const number = msg[0]?.trim();
       const limit = msg[1]?.trim();
 
-      if (!info) {
+      if (!info || !number || !limit) {
         NAYAN.react("❌");
-        if (nayan && typeof nayan.reply === "function") {
+        if (nayan?.reply) {
           return nayan.reply("Number & limit not found", events.threadID, events.messageID);
         } else {
-          console.error("nayan.reply is undefined or not a function at first check");
-          return;
-        }
-      }
-
-      if (!number || !limit) {
-        NAYAN.react("❌");
-        if (nayan && typeof nayan.reply === "function") {
-          return nayan.reply("Number & limit not found", events.threadID, events.messageID);
-        } else {
-          console.error("nayan.reply is undefined or not a function at second check");
+          console.error("nayan.reply is undefined or not a function");
           return;
         }
       }
@@ -47,7 +37,7 @@ module.exports = {
 
       if (data.error) {
         NAYAN.react("🖕");
-        if (nayan && typeof nayan.reply === "function") {
+        if (nayan?.reply) {
           return nayan.reply(data.error, events.threadID, events.messageID);
         } else {
           console.error("nayan.reply is undefined or not a function at error check");
@@ -55,19 +45,18 @@ module.exports = {
         }
       }
 
-      const num = data.send.num;
-      const lim = data.send.limit;
-      const msgs = data.send.msg;
+      const { num, limit: lim, msg: msgs } = data.send;
 
-      if (nayan && typeof nayan.reply === "function") {
-        return nayan.reply("Number: " + num + "\nLimit: " + lim + "\nMessage: " + msgs, events.threadID, events.messageID);
+      if (nayan?.reply) {
+        return nayan.reply(`Number: ${num}\nLimit: ${lim}\nMessage: ${msgs}`, events.threadID, events.messageID);
       } else {
         console.error("nayan.reply is undefined or not a function at final check");
       }
 
     } catch (error) {
       console.error("Error occurred in onStart function:", error);
-      if (nayan && typeof nayan.reply === "function") {
+      NAYAN.react("❌");
+      if (nayan?.reply) {
         return nayan.reply("Sms not sent", events.threadID, events.messageID);
       } else {
         console.error("nayan.reply is undefined or not a function during error handling");
