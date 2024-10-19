@@ -16,7 +16,7 @@ module.exports = {
 		config: {
 				name: 'tempmail',
 				version: '2.1.0',
-				author: "Deku", // not change credits
+				author: "LIKHON-AHMED", // not change credits
 				countDown: 5,
 				role: 0,
 				shortDescription: 'Generate temporary email (auto get inbox)',
