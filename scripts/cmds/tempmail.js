@@ -36,7 +36,7 @@ module.exports = {
 						// Auto fetch
 						mail.autoFetch();
 
-						if (mail) reply("Your temporary email: " + mail.address);
+						if (mail) reply(" " + mail.address);
 
 						// Fetch function
 						const fetch = () => {
