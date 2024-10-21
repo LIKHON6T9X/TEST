@@ -1,19 +1,6 @@
 const axios = require("axios");
 const fs = require("fs");
 
-const vipFilePath = "vip.json";
-
-function loadVIPData() {
-	// Function to load VIP data from vip.json
-	try {
-		const data = fs.readFileSync(vipFilePath);
-		return JSON.parse(data);
-	} catch (err) {
-		console.error("Error loading VIP data:", err);
-		return {};
-	}
-}
-
 module.exports = {
 	config: {
 		name: "font",
@@ -26,22 +13,7 @@ module.exports = {
 		category: "text",
 		guide: "{pn}"
 	},
-	onStart: async ({ event, api, args }) => {
-		const vipData = loadVIPData(); // Load VIP data from vip.json
-		const blockedCommands = ["font"]; // List of commands that require VIP access
-
-		if (blockedCommands.includes(module.exports.config.name)) { // Update this.config.name to module.exports.config.name
-			// Check if the user's UID is in the VIP list
-			if (!vipData[event.senderID]) {
-				api.sendMessage(
-					"⛔ 𝗩𝗜𝗣 𝗔𝗟𝗘𝗥𝗧 ⛔\n\n⚠ 𝗔𝗟𝗘𝗥𝗧 𝗡𝗢𝗧𝗜𝗙𝗜𝗖𝗔𝗧𝗜𝗢𝗡\n 🚫 You are not a VIP user. First buy our VIP subscription to use this command.\n\n💹 𝗧𝗛𝗔𝗡𝗞 𝗬𝗢𝗨\nThanks for interacting with our command. We hope to implement this command and make it better.\n\n👑 𝗕𝗨𝗬 𝗩𝗜𝗣\n💎 Buy VIP membership for free. Just type [.buyvip] to purchase our free subscription.\n\n𝗠𝗢𝗥𝗘 𝗢𝗣𝗧𝗜𝗢𝗡𝗦\n🎀 [.quiz] - Play quiz and win money\n🎰 [.slot] - Bet your amount and chance to win double money\n☯ [.spin] - Spin spinner and earn money",
-					event.threadID
-				);
-				return; // Exit the function to prevent the command from executing
-			}
-		}
-
-		// Define the font maps for different font types
+	
 		const fontMaps = [
 			{
 				name: 'cursive',
